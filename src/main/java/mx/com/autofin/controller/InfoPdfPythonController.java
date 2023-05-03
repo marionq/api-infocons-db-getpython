@@ -1,7 +1,6 @@
 package mx.com.autofin.controller;
 
 import java.util.List;
-import mx.com.autofin.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +12,7 @@ import mx.com.autofin.model.InfoconstanciaRequestModel;
 import mx.com.autofin.model.InfoconstanciaResponseModel;
 import mx.com.autofin.response.ResponseHandler;
 
-import mx.com.autofin.service.EntityClientService;
+import mx.com.autofin.service.InfoPdfPythonClientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/autofin/v1/info")
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
     RequestMethod.DELETE, RequestMethod.OPTIONS})
-public class UserEntityController {
+public class InfoPdfPythonController {
 
     @Autowired
-    private EntityClientService entityClientService;
+    private InfoPdfPythonClientService entityClientService;
 
     @PostMapping(value = "/constancia", produces = "application/json")
     public ResponseEntity<Object> getAccessToken(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {

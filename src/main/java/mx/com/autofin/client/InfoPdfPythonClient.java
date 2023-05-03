@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "api-infoconstancia")
-public interface EntityClient {
+public interface InfoPdfPythonClient {
     
     @PostMapping("/autofin/v1/infoconstancia")
     public List<InfoconstanciaResponseModel> listRespEnt(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel);
