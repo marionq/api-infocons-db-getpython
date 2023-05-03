@@ -6,7 +6,7 @@ eureka:
       
 spring:
   application:
-    name: api-keycloak
+    name: api-infocons-db-getpython
   cloud:
     config:
       discovery:
@@ -15,7 +15,7 @@ spring:
       failFast: true
       #name of base properties config file, before profile
       name: config-client
-      profile: ${PROFILE:local}
+      profile: ${PROFILE:apiinfoconsdbgetpythonlocal}
       #label: latest
       username: admin
       password: qwerty

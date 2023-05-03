@@ -1,9 +1,10 @@
 package mx.com.autofin.service;
 
 import java.util.List;
-import mx.com.autofin.entity.UserEntity;
 import org.springframework.http.ResponseEntity;
 import mx.com.autofin.client.EntityClient;
+import mx.com.autofin.model.InfoconstanciaRequestModel;
+import mx.com.autofin.model.InfoconstanciaResponseModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class EntityClientService implements EntityClient {
     private EntityClient entityClient;
 
     @Override
-    public ResponseEntity<List<UserEntity>> listRespEnt(String username) {
-        return entityClient.listRespEnt(username);
+    public List<InfoconstanciaResponseModel> listRespEnt(InfoconstanciaRequestModel infoconstanciaRequestModel) {
+        return entityClient.listRespEnt(infoconstanciaRequestModel);
     }
     
 }

@@ -1,15 +1,16 @@
 package mx.com.autofin.client;
 
 import java.util.List;
-import mx.com.autofin.entity.UserEntity;
+import mx.com.autofin.model.InfoconstanciaRequestModel;
+import mx.com.autofin.model.InfoconstanciaResponseModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "api-keycloak")
+@FeignClient(name = "api-infoconstancia")
 public interface EntityClient {
     
-    @GetMapping("/autofin/v1/userdbkeycloak/findbyusernameres/{username}")
-    public ResponseEntity<List<UserEntity>> listRespEnt(@PathVariable String username);
+    @PostMapping("/autofin/v1/infoconstancia")
+    public List<InfoconstanciaResponseModel> listRespEnt(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel);
 }

@@ -10,9 +10,9 @@
     </parent>
     
     <groupId>mx.com.autofin</groupId>
-    <artifactId>api-keycloak</artifactId>
+    <artifactId>api-infocons-db-getpython</artifactId>
     <version>0.0.1</version>
-    <name>api-keycloak</name>
+    <name>api-infocons-db-getpython</name>
     <description>Servicios keycloak</description>
     
     <properties>
