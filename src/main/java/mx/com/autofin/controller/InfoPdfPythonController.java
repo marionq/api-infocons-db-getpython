@@ -48,7 +48,5 @@ public class InfoPdfPythonController {
         return ResponseEntity.ok(findAll);
 
     }
-    
-    
 
 }
