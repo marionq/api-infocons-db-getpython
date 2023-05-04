@@ -44,6 +44,8 @@ public class InfoPdfPythonController {
     
     @PostMapping(value = "/insert", produces = "application/json")
     public ResponseEntity<Object> insert(@RequestBody ApiInfoPdfTblEntity apiInfoPdfTblEntity) {
+        apiInfoPdfTblEntity.setRfc("NEQM870315UR6");
+        apiInfoPdfTblEntity.setRfc("jbkjasdfljasdfiopjapofdijaopsdijfpaoifdjpaoifdj");
         ApiInfoPdfTblEntity findAll = apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
         return ResponseEntity.ok(findAll);
 
