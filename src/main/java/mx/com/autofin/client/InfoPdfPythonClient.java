@@ -4,7 +4,6 @@ import java.util.List;
 import mx.com.autofin.model.InfoconstanciaRequestModel;
 import mx.com.autofin.model.InfoconstanciaResponseModel;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -12,5 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface InfoPdfPythonClient {
     
     @PostMapping("/autofin/v1/infoconstancia")
+   
     public List<InfoconstanciaResponseModel> listRespEnt(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel);
 }
