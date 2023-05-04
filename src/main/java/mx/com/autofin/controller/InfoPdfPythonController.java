@@ -43,10 +43,8 @@ public class InfoPdfPythonController {
     }
     
     @PostMapping(value = "/insert", produces = "application/json")
-    public ResponseEntity<Object> insert(@RequestBody ApiInfoPdfTblEntity apiInfoPdfTblEntity) {
-        apiInfoPdfTblEntity.setRfc("NEQM870315UR6");
-        apiInfoPdfTblEntity.setConstanciaPdf("jbkjasdfljasdfiopjapofdijaopsdijfpaoifdjpaoifdj");
-        ApiInfoPdfTblEntity findAll = apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
+    public ResponseEntity<Object> insert(@RequestBody ApiInfoPdfTblEntity ApiInfoPdfTblEntity) {
+        ApiInfoPdfTblEntity findAll = apiInfoPdfTblEntityRepository.save(ApiInfoPdfTblEntity);
         return ResponseEntity.ok(findAll);
 
     }
