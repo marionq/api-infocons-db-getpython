@@ -14,7 +14,7 @@ public class ApiInfoPdfTblEntity {
     @Id
     private String rfc;
 	
-    @Column(name = "constancia_pdf")
+    @Column(name = "CONSTANCIA_PDF")
     private String constanciaPdf;
 
 }
