@@ -1,5 +1,6 @@
 package mx.com.autofin.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ public class ApiInfoPdfTblEntity {
     private String rfc;
 	
     @Column(name = "CONSTANCIA_PDF")
+    @JsonProperty("constancia_pdf")
     private String constanciaPdf;
 
 }
