@@ -8,6 +8,6 @@ public interface ApiUsoCfdiTblEntityRepositoryCrud extends CrudRepository<ApiUso
 
     List<ApiUsoCfdiTblEntity> findByusoCfdi(String usoCfdi);
 
-    List<ApiUsoCfdiTblEntity> findByRegFiscalReceptorLikeContaining(String regFiscal);
+    List<ApiUsoCfdiTblEntity> findByRegFiscalReceptorContaining(String regFiscal);
 
 }
