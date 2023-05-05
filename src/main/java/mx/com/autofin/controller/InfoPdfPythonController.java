@@ -67,11 +67,11 @@ public class InfoPdfPythonController {
         
         //Consulta a la DB para traer el id del regimen y concatenarlo con la descripción
         List<ApiRegimenFiscalTblEntity> apiRegimenFiscalTblEntity = apiRegimenFiscalTblEntityCrudRepository.findByDescripcion(infoConstancia.get(0).getRegimen());
-        String regimenCompleto = infoConstancia.get(0).getRegimen() + ":" + apiRegimenFiscalTblEntity.get(0).getRegFiscal();
+        String regimenCompleto = apiRegimenFiscalTblEntity.get(0).getRegFiscal() + ":" + infoConstancia.get(0).getRegimen();
         infoConstancia.get(0).setRegimen(regimenCompleto);
         
         //Cunsulta a la DB para recuperar los Usos de Cfdi
-        List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(infoConstancia.get(0).getRegimen());
+        List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(apiRegimenFiscalTblEntity.get(0).getRegFiscal());
         
         //Se la lista de uso de cfdi al response
         infoConstancia.get(0).setUsoCfdi(usoCfdi);
