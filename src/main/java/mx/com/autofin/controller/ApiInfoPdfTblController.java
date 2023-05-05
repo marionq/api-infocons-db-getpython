@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.com.autofin.repository.ApiInfoPdfTblEntityRepository;
+import mx.com.autofin.repository.ApiUsoCfdiTblEntityRepository;
 import mx.com.autofin.repository.ApiUsoCfdiTblEntityRepositoryCrud;
 //mport mx.com.autofin.repository.ApiInfoPdfTblEntityRepositoryCrud;
 import mx.com.autofin.response.ResponseHandler;
@@ -29,11 +30,24 @@ public class ApiInfoPdfTblController {
     ApiInfoPdfTblEntityRepository apiInfoPdfTblEntityRepository;
     
     @Autowired
+    ApiUsoCfdiTblEntityRepository apiUsoCfdiTblEntityRepository;
+    
+    @Autowired
     ApiUsoCfdiTblEntityRepositoryCrud apiUsoCfdiTblEntityRepositoryCrud;
 
     @GetMapping()
     public ResponseEntity<Object> list() {
         List<ApiInfoPdfTblEntity> findAll = apiInfoPdfTblEntityRepository.findAll();
+        if (findAll == null || findAll.isEmpty()) {
+            return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
+        } else {
+            return ResponseHandler.generateResponse("OK", HttpStatus.OK, findAll);
+        }
+    }
+    
+    @GetMapping(value = "/uso", produces = "application/json")
+    public ResponseEntity<Object> listUso() {
+        List<ApiUsoCfdiTblEntity> findAll = apiUsoCfdiTblEntityRepository.findAll();
         if (findAll == null || findAll.isEmpty()) {
             return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
         } else {

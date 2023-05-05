@@ -10,7 +10,7 @@ public interface ApiUsoCfdiTblEntityRepositoryCrud extends CrudRepository<ApiUso
 
     List<ApiUsoCfdiTblEntity> findByusoCfdi(String usoCfdi);
 
-    @Query("select u from api_usocfdi_tbl u where u.reg_fiscal_receptor like '%regFiscal%'")
-    List<ApiUsoCfdiTblEntity> findUserByregFiscalReceptorLike(@Param("regFiscal") String regFiscal);
+    //@Query("select u from api_usocfdi_tbl u where u.reg_fiscal_receptor like '%regFiscal%'")
+    //List<ApiUsoCfdiTblEntity> findUserByregFiscalReceptorLike(@Param("regFiscal") String regFiscal);
 
 }
