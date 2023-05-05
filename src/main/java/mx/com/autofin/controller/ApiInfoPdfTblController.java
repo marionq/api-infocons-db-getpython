@@ -57,7 +57,7 @@ public class ApiInfoPdfTblController {
     
     @GetMapping(value = "/like/{regFiscal}", produces = "application/json")
     public ResponseEntity<Object> listLike(@PathVariable String regFiscal) {
-        List<ApiUsoCfdiTblEntity> findLike = apiUsoCfdiTblEntityRepositoryCrud.findByRegFiscalReceptorLike(regFiscal);
+        List<ApiUsoCfdiTblEntity> findLike = apiUsoCfdiTblEntityRepositoryCrud.findByRegFiscalReceptorLikeContaining(regFiscal);
         if (findLike == null || findLike.isEmpty()) {
             return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
         } else {
