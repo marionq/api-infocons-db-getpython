@@ -19,15 +19,12 @@ import mx.com.autofin.repository.ApiUsoCfdiTblEntityRepositoryCrud;
 import mx.com.autofin.response.ResponseHandler;
 
 import mx.com.autofin.service.InfoPdfPythonClientService;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/autofin/v1/infopdf")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-    RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class InfoPdfPythonController {
 
     @Autowired
