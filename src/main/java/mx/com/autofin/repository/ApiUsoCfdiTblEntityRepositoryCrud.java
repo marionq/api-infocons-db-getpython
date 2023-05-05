@@ -1,6 +1,5 @@
 package mx.com.autofin.repository;
 
-import feign.Param;
 import java.util.List;
 import mx.com.autofin.entity.ApiUsoCfdiTblEntity;
 import org.springframework.data.jpa.repository.Query;
