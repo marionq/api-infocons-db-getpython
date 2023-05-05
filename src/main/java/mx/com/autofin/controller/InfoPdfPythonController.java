@@ -83,7 +83,7 @@ public class InfoPdfPythonController {
                 return ResponseHandler.generateResponse("OK", HttpStatus.OK, infoConstancia);
             }
         } catch (Exception e) {
-            return ResponseHandler.generateResponse("Error", HttpStatus.INTERNAL_SERVER_ERROR, "Error message: " + e.getMessage());
+            return ResponseHandler.generateResponse("Formato no compatible", HttpStatus.NOT_ACCEPTABLE, "Error message: " + e.getMessage());
         }
 
     }
