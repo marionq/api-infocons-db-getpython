@@ -18,9 +18,5 @@ public class ApiUsoCfdiTblEntity {
     private String usoCfdi;
     
     private String descripcion;
-    
-    @Column(name = "REG_FISCAL_RECEPTOR")
-    @JsonProperty("reg_fiscal_receptor")
-    private String regFiscalReceptor;
 
 }
