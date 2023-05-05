@@ -3,6 +3,7 @@ package mx.com.autofin.controller;
 import java.util.List;
 import mx.com.autofin.entity.ApiInfoPdfTblEntity;
 import mx.com.autofin.entity.ApiUsoCfdiTblEntity;
+import mx.com.autofin.model.ApiUsoCfdiTblModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,7 +58,7 @@ public class ApiInfoPdfTblController {
     
     @GetMapping(value = "/like/{regFiscal}", produces = "application/json")
     public ResponseEntity<Object> listLike(@PathVariable String regFiscal) {
-        List<ApiUsoCfdiTblEntity> findLike = apiUsoCfdiTblEntityRepositoryCrud.findByRegFiscalReceptorContaining(regFiscal);
+        List<ApiUsoCfdiTblModel> findLike = apiUsoCfdiTblEntityRepositoryCrud.findByRegFiscalReceptorContaining(regFiscal);
         if (findLike == null || findLike.isEmpty()) {
             return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
         } else {
