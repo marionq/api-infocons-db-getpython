@@ -12,7 +12,7 @@ public interface ApiUsoCfdiTblEntityRepositoryCrud extends CrudRepository<ApiUso
 
     //List<ApiUsoCfdiTblModel> findByRegFiscalReceptorContaining(String regFiscal);
     
-    @Query(value = "select * from infopdf.api_usocfdi_tbl where reg_fiscal_receptor like '%:regFiscal%'", nativeQuery = true)
-    List<ApiUsoCfdiTblEntity> findLikeRegFiscalReceptor(@Param("regFiscal")String regFiscal);
+    @Query(value = "select * from infopdf.api_usocfdi_tbl where reg_fiscal_receptor like '%?%'", nativeQuery = true)
+    List<ApiUsoCfdiTblEntity> findLikeRegFiscalReceptor(String regFiscal);
 
 }
