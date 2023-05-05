@@ -55,15 +55,13 @@ public class ApiInfoPdfTblController {
         }
     }
     
-    /*
     @GetMapping(value = "/like/{regFiscal}", produces = "application/json")
     public ResponseEntity<Object> listLike(@PathVariable String regFiscal) {
-        List<ApiUsoCfdiTblEntity> findLike = apiUsoCfdiTblEntityRepositoryCrud.findUserByregFiscalReceptorLike(regFiscal);
+        List<ApiUsoCfdiTblEntity> findLike = apiUsoCfdiTblEntityRepositoryCrud.findByRegFiscalReceptorLike(regFiscal);
         if (findLike == null || findLike.isEmpty()) {
             return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
         } else {
             return ResponseHandler.generateResponse("OK", HttpStatus.OK, findLike);
         }
     }
-*/
 }
