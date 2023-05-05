@@ -3,7 +3,6 @@ package mx.com.autofin.controller;
 import java.util.List;
 import mx.com.autofin.entity.ApiInfoPdfTblEntity;
 import mx.com.autofin.entity.ApiUsoCfdiTblEntity;
-import mx.com.autofin.model.ApiUsoCfdiTblModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
