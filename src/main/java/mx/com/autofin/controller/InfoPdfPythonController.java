@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/autofin/v1/info")
+@RequestMapping("/autofin/v1/infopdf")
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
     RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class InfoPdfPythonController {
@@ -53,7 +53,7 @@ public class InfoPdfPythonController {
 
     }
     
-    @PostMapping(value = "/insert", produces = "application/json")
+    @PostMapping(value = "/get-insert", produces = "application/json")
     public ResponseEntity<Object> insert(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {               
         
         //SE hace la consulta a servicio python ocr
