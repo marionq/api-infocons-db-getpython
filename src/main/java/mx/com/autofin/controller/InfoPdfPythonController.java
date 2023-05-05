@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/autofin/v1/infopdf")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+    RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class InfoPdfPythonController {
 
     @Autowired
