@@ -19,6 +19,7 @@ import mx.com.autofin.repository.ApiUsoCfdiTblEntityRepositoryCrud;
 import mx.com.autofin.response.ResponseHandler;
 
 import mx.com.autofin.service.InfoPdfPythonClientService;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,16 +32,15 @@ public class InfoPdfPythonController {
 
     @Autowired
     private InfoPdfPythonClientService entityClientService;
-    
+
     @Autowired
     ApiInfoPdfTblEntityRepository apiInfoPdfTblEntityRepository;
-    
+
     @Autowired
     ApiRegimenFiscalTblEntityCrudRepository apiRegimenFiscalTblEntityCrudRepository;
-    
+
     @Autowired
     ApiUsoCfdiTblEntityRepositoryCrud apiUsoCfdiTblEntityRepositoryCrud;
-    
 
     @PostMapping(value = "/constancia", produces = "application/json")
     public ResponseEntity<Object> getAccessToken(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {
@@ -52,34 +52,38 @@ public class InfoPdfPythonController {
         }
 
     }
-    
+
     @PostMapping(value = "/get-insert", produces = "application/json")
-    public ResponseEntity<Object> insert(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {               
-        
-        //SE hace la consulta a servicio python ocr
-        List<InfoconstanciaResponseModel> infoConstancia = entityClientService.listRespEnt(infoconstanciaRequestModel);
-                
-        //Se guarda el RFC y PDF en la base de datos
-        ApiInfoPdfTblEntity apiInfoPdfTblEntity = new ApiInfoPdfTblEntity();
-        apiInfoPdfTblEntity.setRfc(infoConstancia.get(0).getRfc());
-        apiInfoPdfTblEntity.setConstanciaPdf(infoconstanciaRequestModel.getStringBase64());
-        apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
-        
-        //Consulta a la DB para traer el id del regimen y concatenarlo con la descripción
-        List<ApiRegimenFiscalTblEntity> apiRegimenFiscalTblEntity = apiRegimenFiscalTblEntityCrudRepository.findByDescripcion(infoConstancia.get(0).getRegimen());
-        String regimenCompleto = apiRegimenFiscalTblEntity.get(0).getRegFiscal() + ":" + infoConstancia.get(0).getRegimen();
-        infoConstancia.get(0).setRegimen(regimenCompleto);
-        
-        //Cunsulta a la DB para recuperar los Usos de Cfdi
-        List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(apiRegimenFiscalTblEntity.get(0).getRegFiscal());
-        
-        //Se la lista de uso de cfdi al response
-        infoConstancia.get(0).setUsoCfdi(usoCfdi);
-        
-        if (infoConstancia == null || infoConstancia.isEmpty()) {
-            return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
-        } else {
-            return ResponseHandler.generateResponse("OK", HttpStatus.OK, infoConstancia);
+    public ResponseEntity<Object> insert(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {
+
+        try {
+            //SE hace la consulta a servicio python ocr
+            List<InfoconstanciaResponseModel> infoConstancia = entityClientService.listRespEnt(infoconstanciaRequestModel);
+
+            //Se guarda el RFC y PDF en la base de datos
+            ApiInfoPdfTblEntity apiInfoPdfTblEntity = new ApiInfoPdfTblEntity();
+            apiInfoPdfTblEntity.setRfc(infoConstancia.get(0).getRfc());
+            apiInfoPdfTblEntity.setConstanciaPdf(infoconstanciaRequestModel.getStringBase64());
+            apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
+
+            //Consulta a la DB para traer el id del regimen y concatenarlo con la descripción
+            List<ApiRegimenFiscalTblEntity> apiRegimenFiscalTblEntity = apiRegimenFiscalTblEntityCrudRepository.findByDescripcion(infoConstancia.get(0).getRegimen());
+            String regimenCompleto = apiRegimenFiscalTblEntity.get(0).getRegFiscal() + ":" + infoConstancia.get(0).getRegimen();
+            infoConstancia.get(0).setRegimen(regimenCompleto);
+
+            //Cunsulta a la DB para recuperar los Usos de Cfdi
+            List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(apiRegimenFiscalTblEntity.get(0).getRegFiscal());
+
+            //Se la lista de uso de cfdi al response
+            infoConstancia.get(0).setUsoCfdi(usoCfdi);
+
+            if (infoConstancia == null || infoConstancia.isEmpty()) {
+                return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
+            } else {
+                return ResponseHandler.generateResponse("OK", HttpStatus.OK, infoConstancia);
+            }
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse("OK", HttpStatus.OK, "Error message: " + e.getMessage());
         }
 
     }
