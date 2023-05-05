@@ -45,22 +45,20 @@ public class InfoPdfPythonController {
     @PostMapping(value = "/insert", produces = "application/json")
     public ResponseEntity<Object> insert(@RequestBody InfoconstanciaRequestModel infoconstanciaRequestModel) {               
         
-        //Se hace la consulta a servicio python ocr       
-        
-        /*
+        //SE hace la consulta a servicio python ocr
+        List<InfoconstanciaResponseModel> infoConstancia = entityClientService.listRespEnt(infoconstanciaRequestModel);
+                
         //Se guarda el RFC y PDF en la base de datos
         ApiInfoPdfTblEntity apiInfoPdfTblEntity = new ApiInfoPdfTblEntity();
         apiInfoPdfTblEntity.setRfc(infoConstancia.get(0).getRfc());
         apiInfoPdfTblEntity.setConstanciaPdf(infoconstanciaRequestModel.getStringBase64());
-        apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
-        */
+        apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);        
         
-        List<InfoconstanciaResponseModel> findAll = entityClientService.listRespEnt(infoconstanciaRequestModel);
-        if (findAll == null || findAll.isEmpty()) {
+        if (infoConstancia == null || infoConstancia.isEmpty()) {
             return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
         } else {
-            return ResponseHandler.generateResponse("OK", HttpStatus.OK, findAll);
-        }       
+            return ResponseHandler.generateResponse("OK", HttpStatus.OK, infoConstancia);
+        }
 
     }
 
