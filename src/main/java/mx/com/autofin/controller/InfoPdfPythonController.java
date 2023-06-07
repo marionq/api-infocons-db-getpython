@@ -4,6 +4,7 @@ import java.util.List;
 import mx.com.autofin.entity.ApiInfoPdfTblEntity;
 import mx.com.autofin.entity.ApiRegimenFiscalTblEntity;
 import mx.com.autofin.entity.ApiUsoCfdiTblEntity;
+import mx.com.autofin.model.ApiUsoRegimenCfdiTblModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -63,18 +64,27 @@ public class InfoPdfPythonController {
             ApiInfoPdfTblEntity apiInfoPdfTblEntity = new ApiInfoPdfTblEntity();
             apiInfoPdfTblEntity.setRfc(infoConstancia.get(0).getRfc());
             apiInfoPdfTblEntity.setConstanciaPdf(infoconstanciaRequestModel.getStringBase64());
-            apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);
+            apiInfoPdfTblEntityRepository.save(apiInfoPdfTblEntity);                        
+            
+            for (InfoconstanciaResponseModel infoconstanciaResponseModelFor : infoConstancia) {
+                List<ApiUsoRegimenCfdiTblModel> apiUsoRegimenCfdiTblModel = infoconstanciaResponseModelFor.getUsoRegimen();
 
-            //Consulta a la DB para traer el id del regimen y concatenarlo con la descripción
-            List<ApiRegimenFiscalTblEntity> apiRegimenFiscalTblEntity = apiRegimenFiscalTblEntityCrudRepository.findByDescripcion(infoConstancia.get(0).getRegimen());
-            String regimenCompleto = apiRegimenFiscalTblEntity.get(0).getRegFiscal() + ":" + infoConstancia.get(0).getRegimen();
-            infoConstancia.get(0).setRegimen(regimenCompleto);
-
-            //Cunsulta a la DB para recuperar los Usos de Cfdi
-            List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(apiRegimenFiscalTblEntity.get(0).getRegFiscal());
-
-            //Se la lista de uso de cfdi al response
-            infoConstancia.get(0).setUsoCfdi(usoCfdi);
+                for (ApiUsoRegimenCfdiTblModel apiUsoRegimenCfdiTblModelFor : apiUsoRegimenCfdiTblModel) {
+                    //Consulta a la DB para traer el id del regimen y concatenarlo con la descripción
+                    List<ApiRegimenFiscalTblEntity> apiRegimenFiscalTblEntity = apiRegimenFiscalTblEntityCrudRepository.findByDescripcion(apiUsoRegimenCfdiTblModelFor.getRegimen());
+                    String regimenCompleto = apiRegimenFiscalTblEntity.get(0).getRegFiscal() + ":" + apiUsoRegimenCfdiTblModelFor.getRegimen();
+                    System.out.println(regimenCompleto);
+                    
+                    //Cunsulta a la DB para recuperar los Usos de Cfdi antes de setearlo el regimen concatenado                    
+                    List<ApiUsoCfdiTblEntity> usoCfdi = apiUsoCfdiTblEntityRepositoryCrud.findLikeRegFiscalReceptor(apiRegimenFiscalTblEntity.get(0).getRegFiscal());
+                    
+                    //Se agrega la lista de uso de cfdi al response                    
+                    apiUsoRegimenCfdiTblModelFor.setUsoCfdi(usoCfdi);
+                    
+                    //Se setea el id y descripcion del regimen
+                    apiUsoRegimenCfdiTblModelFor.setRegimen(regimenCompleto);                   
+                }
+            }            
 
             if (infoConstancia == null || infoConstancia.isEmpty()) {
                 return ResponseHandler.generateResponse("", HttpStatus.NO_CONTENT, null);
@@ -82,7 +92,7 @@ public class InfoPdfPythonController {
                 return ResponseHandler.generateResponse("OK", HttpStatus.OK, infoConstancia);
             }
         } catch (Exception e) {
-            return ResponseHandler.generateResponse("Formato no compatible", HttpStatus.NOT_ACCEPTABLE, "Error message: " + e.getMessage());
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.NOT_ACCEPTABLE, "Error message: " + e.getMessage());
         }
 
     }

@@ -15,13 +15,11 @@ public class InfoconstanciaResponseModel {
     private String fechaEmision;
     
     @JsonProperty("razon_social")
-    private String razonSocial;
-    
-    private String regimen;
+    private String razonSocial;    
     
     private String rfc;
     
-    @JsonProperty("uso_cfdi")
-    private  List<ApiUsoCfdiTblEntity> usoCfdi;
+    @JsonProperty("uso_regimen")
+    private  List<ApiUsoRegimenCfdiTblModel> usoRegimen;
     
 }
